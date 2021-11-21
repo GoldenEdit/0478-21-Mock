@@ -7,9 +7,6 @@ PTCodes = ["BPCM","BPSH","RPSS","RPLL","YPLS","YPLL","RTMS","RTLM","YTLM","YTLL"
 PTDescriptions = ["Compact phone","Clam Shell phone","Robophone 5 inch phone","Robophone 6 inch phone","Y-Phone Standard","Y-Phone Deluxe","RoboTab 8-inch tablet","RoboTab 10-inch tablet","Y-Tab Standard 10 inch tablet","Y-Tab Deluxe 10 inch tablet"]
 PTPrices = [29.99,49.99,199.99,499.99,549.99,649.99,149.99,299.99,499.99,599.99]
 
-
-# data structures
-
 #   Cases
 CaseCodes = ["CSST","CSLX"]
 CaseDescriptions = ["Standard case","Luxury case"]
@@ -20,71 +17,44 @@ ChargerCodes = ["CGCR","CGHM","CGBH"]
 ChargerDescriptions = ["Car Charger","Home charger","Car & Home charger"]
 ChargerPrices = [19.99,15.99,35.98]
 
-#   Variables
-DeviceOrder = 'N' #Lets the user decide if they would like to order a phone or tablet, stores a Y/N | String
-TotalAccessoriesPrice = 0 #The price of all of the accessories (Case & Charger) added together | Float
-#NumDevicesOrdered = 0 #Stores the number of devices ordered to apply a discount on every +1 device ordered | Int
-DeviceDiscount = 0 #Stores the discount that the user is getting, to output to them at the end | Float
-TotalDeviceOrder = 0 #Cost of all of the devices that the user orderd inc discount | Float
-TotalSIMPrice = 0 #Another running total variable (for the total of all of the SIMs) | Float
-FirstSIMPrice = 0 #Cost of the original sim bought | Float
-SIMPrice = 0 #Cost of SIM (Changes depending on which sim option is chosen) | Float
-
 
 def main():
+    #   Variables
+    DeviceOrder = 'N' #Lets the user decide if they would like to order a phone or tablet, stores a Y/N | String
+    TotalAccessoriesPrice = 0 #The price of all of the accessories (Case & Charger) added together | Float
+    NumDevicesOrdered = 0 #Stores the number of devices ordered to apply a discount on every +1 device ordered | Int
+    DeviceDiscount = 0 #Stores the discount that the user is getting, to output to them at the end | Float
+    TotalDeviceOrder = 0 #Cost of all of the devices that the user orderd inc discount | Float
+    TotalSIMPrice = 0 #Another running total variable (for the total of all of the SIMs) | Float
+    FirstSIMPrice = 0 #Cost of the original sim bought | Float
+    SIMPrice = 0 #Cost of SIM (Changes depending on which sim option is chosen) | Float
     print('''
------ Welcome to Mobile Phone Shop -----   
-    
-    ''')
+    ----- Welcome to Mobile Phone Shop -----   
 
+    ''')
     NewOrder = ""
-    
     while NewOrder == "":
 
-    #   Phone or Tablet Order
+        #   Phone or Tablet Order
         DeviceOrder = input("Would you like to order a phone or tablet Y/N: ").upper()  
 
         if DeviceOrder == "Y":
-            printPTTable() # call procedure that contains code for printing the phone/tablet table
+            printPTTable() #Call procedure that contains code for printing the phone/tablet table
 
-            print("") #prints an empty line
+            print("") #Prints an empty line
             
-
             #   Choose a device & validation 
 
-            
-            # while PTChoice not in PTCodes: #Valdation (Checks that the input is in the codes array, if not, asks for it again
-            #     print("")
-            #     print("Not a valid code, try again")
-            #     PTChoice = input("Enter the device code (XXXX): ").upper()
-
             PTChoice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
-            while PTChoice not in PTCodes:
+            while PTChoice not in PTCodes: #Valdation (Checks that the input is in the codes array, if not, asks for it again
+                print("")
+                print("Not a valid code, try again")
                 PTChoice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
             PTChoice = PTCodes.index(PTChoice)    
-                
-                
+                       
             #   Get the position number in the array of the code, to find corresponding price in another array.
             DPrice = PTPrices[PTChoice]
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-            
+                 
 
             if PTChoice <7: #Checks if the users input was less than 7 (they picked a phone)
                 SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
@@ -92,10 +62,8 @@ def main():
                     SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
             
                 if SIMChoice == 1:
-                    SIMCard = "SIM Free"
                     SIMPrice = 0.00 #Sets the price of the SIM
                 else:
-                    SIMCard = "SIM Pay as you go"
                     SIMPrice = 9.99 #Sets the price of the SIM
 
                 TotalSIMPrice = TotalSIMPrice + SIMPrice #Running total
@@ -156,12 +124,6 @@ def main():
     print("-==================-")
 
 
-
-
-
-
-
-
 # Procedure to display a table containing only phones or tablets
 def printPTTable():
 
@@ -175,7 +137,6 @@ def printPTTable():
     print(tabulate(data, headers=["TYPE", "CODE", "DESCRIPTION", "COST"], tablefmt = "fancy_grid", numalign="right"))
 
     print("") #prints an empty line
-
 
 
 
