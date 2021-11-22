@@ -5,6 +5,6 @@ Perfectly working code, before extra edits
 - Functional & simple
 - Uses 1-10 instead of item codes
 
-(View the release here)[https://github.com/GoldenEdit/0478-21/releases/tag/v2]
+https://github.com/GoldenEdit/0478-21/releases/tag/v2
 
 
