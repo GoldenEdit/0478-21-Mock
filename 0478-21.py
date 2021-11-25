@@ -37,37 +37,21 @@ def main():
 
         #   Phone or Tablet Order
         DeviceOrder = input("Would you like to order a phone or tablet Y/N: ").upper()  
-
+        
         if DeviceOrder == "Y":
             printPTTable() #Call procedure that contains code for printing the phone/tablet table
 
             print("") #Prints an empty line
             
-            #   Choose a device & validation 
-
-            PTChoice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
-            while PTChoice not in PTCodes: #Valdation (Checks that the input is in the codes array, if not, asks for it again
-                print("")
-                print("Not a valid code, try again")
-                PTChoice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
-            PTChoice = PTCodes.index(PTChoice)    
-                       
+            PTChoice = getDeviceInput(PTCodes) #Choose a device & validation 
+    
             #   Get the position number in the array of the code, to find corresponding price in another array.
             DPrice = PTPrices[PTChoice]
                  
 
-            if PTChoice <7: #Checks if the users input was less than 7 (they picked a phone)
-                SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
-                while SIMChoice < 1 or SIMChoice > 2: #Valdation (Checks that the input is within constraints, if not asks for input again)
-                    SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
+            SIMPrice = SIMs(PTChoice)
             
-                if SIMChoice == 1:
-                    SIMPrice = 0.00 #Sets the price of the SIM
-                else:
-                    SIMPrice = 9.99 #Sets the price of the SIM
-
-                TotalSIMPrice = TotalSIMPrice + SIMPrice #Running total
-            print("\n")
+            TotalSIMPrice = TotalSIMPrice + SIMPrice #Running total
 
             #   Count the number of devices ordered and apply a discount for every +1 device
             NumDevicesOrdered = NumDevicesOrdered + 1 #Adds to the running total of devices ordered
@@ -116,12 +100,7 @@ def main():
 
         NewOrder = input("Press enter to place another order or any other key to quit")
 
-    #Recipt Output
-    print("-==================-")
-    print("Your recipt:")
-    print("Total: $",round(TotalDeviceOrder+TotalAccessoriesPrice,2)) #Rounded to 2 decimal places to prevent output looking ugly & Add running totals for devices & accessories together
-    print("Discount: $",round(DeviceDiscount,2)) 
-    print("-==================-")
+    recipt(TotalDeviceOrder,TotalAccessoriesPrice,DeviceDiscount)
 
 
 # Procedure to display a table containing only phones or tablets
@@ -138,8 +117,38 @@ def printPTTable():
 
     print("") #prints an empty line
 
+def getDeviceInput(Codes):
+    Choice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
+    
+    while Choice not in Codes: #Valdation (Checks that the input is in the codes array, if not, asks for it again
+        print("")
+        print("Not a valid code, try again")
+        Choice = input("Enter the device code (XXXX) that you wish to purchase: ").upper()
+    Choice = Codes.index(Choice)  
+    
+    return Choice 
+
+def SIMs(Choice):
+    if Choice <7: #Checks if the users input was less than 7 (they picked a phone)
+        SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
+        while SIMChoice < 1 or SIMChoice > 2: #Valdation (Checks that the input is within constraints, if not asks for input again)
+            SIMChoice = int(input("Enter 1 for a SIM free or 2 for Pay as you go SIM: "))
+
+        if SIMChoice == 1:
+            SIMPrice = 0.00 #Sets the price of the SIM
+        else:
+            SIMPrice = 9.99 #Sets the price of the SIM
+    print("\n")
+    return SIMPrice
 
 
+def recipt(TotalDeviceOrder,TotalAccessoriesPrice,DeviceDiscount):
+    #Recipt Output
+    print("-==================-")
+    print("Your recipt:")
+    print("Total: $",round(TotalDeviceOrder+TotalAccessoriesPrice,2)) #Rounded to 2 decimal places to prevent output looking ugly & Add running totals for devices & accessories together
+    print("Discount: $",round(DeviceDiscount,2)) 
+    print("-==================-")
 
 # KEEP
 if __name__ == '__main__':
