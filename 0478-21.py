@@ -138,6 +138,8 @@ def SIMs(Choice):
             SIMPrice = 0.00 #Sets the price of the SIM
         else:
             SIMPrice = 9.99 #Sets the price of the SIM
+    else:
+        SIMPrice = 0.0 #Sets the price of the SIM
     print("\n")
     return SIMPrice
 
